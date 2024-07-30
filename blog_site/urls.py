@@ -18,13 +18,14 @@ from django.contrib import admin
 from django.urls import include, path
 
 from .views import home
-from blogs.views import single_blog
+from blogs.views import single_blog, search
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
-    path('<slug:link>/', single_blog, name='single_blog'),
-    path('blogs/', include("blogs.urls"))
+    path('blogs/<slug:link>/', single_blog, name='single_blog'),
+    path('blogs/', include("blogs.urls")),
+    path('search/', search, name='search')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
