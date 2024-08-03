@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from .views import home
+from .views import home, register, login,logout
 from blogs.views import single_blog, search
 from django.conf import settings
 from django.conf.urls.static import static
@@ -27,5 +27,9 @@ urlpatterns = [
     path('', home, name='home'),
     path('blogs/<slug:link>/', single_blog, name='single_blog'),
     path('blogs/', include("blogs.urls")),
-    path('search/', search, name='search')
+    path('search/', search, name='search'),
+    path('register/', register, name='register' ),
+    path('login/', login, name='login'),
+    path('logout/', logout, name='logout'),
+    path('dashboard/', include("dashboard.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
