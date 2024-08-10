@@ -26,12 +26,61 @@
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{blog.body}}.</p>
                 </section>
+                <!-- BEGIN Comments -->
+                <div class="container mt-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Comment Section ({{comment_count}})</h5>
+                        </div>
+                        {% if comments %}
+
+                        <div class="card-body">
+
+                            <!-- Comment Block -->
+                            {% for comment in comments %}
+                            <div class="media mb-3">
+                                <img src="https://via.placeholder.com/64" class="mr-3 rounded-circle" alt="User Avatar">
+                                <div class="media-body">
+                                    <h6 class="mt-0">{{comment.user}}<small class="text-muted">-
+                                            {{comment.created_at|timesince}}</small></h6>
+                                    <p>{{comment.text}}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+
+
+
+                        </div>
+                        {% else %}
+                        <p class="m-2">No comments</p>
+                        {% endif %}
+
+                    </div>
+                    <!-- Add Comment Form -->
+                    {% if user.is_authenticated %}
+                    <div class="mt-4">
+                        <h6>Add a Comment</h6>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <textarea class="form-control" rows="3" name="comment"
+                                    placeholder="Write your comment here..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add comment</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <div class="my-4"> You need to <a href="{% url 'login' %}">login</a> to comment</div>
+                    {% endif %}
+                </div>
+                <!-- END Comments -->
             </article>
         </div>
         <!-- Side widgets-->
         <div class="col-lg-4">
             <!-- Search widget-->
-            
+
             <!-- Categories widget-->
             <div class="card mb-4 p-3">
                 <h4 class="font-italic">Categories</h4>

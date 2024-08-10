@@ -25,11 +25,12 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
-    path('blogs/<slug:link>/', single_blog, name='single_blog'),
     path('blogs/', include("blogs.urls")),
+    path('blogs/<slug:link>/', single_blog, name='single_blog'),    
     path('search/', search, name='search'),
     path('register/', register, name='register' ),
     path('login/', login, name='login'),
     path('logout/', logout, name='logout'),
     path('dashboard/', include("dashboard.urls")),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
